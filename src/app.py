@@ -31,12 +31,16 @@ def hello_world():
 
 @app.route('/todos', methods=['POST'])
 def add_new_todo():
+    # request_body = request.json  # OTRA FORMA
+    
+    # OTRA FORMA
+    # request_body = request.data 
+    # decoded_object = json.loads(request_body)
+    # todos.append(decoded_object)
 
-    request_body = request.data
+    request_body = request.get_json(force=True)
 
-    decoded_object = json.loads(request_body)
-
-    todos.append(decoded_object)
+    todos.append(request_body)
 
     print("Incoming request with the following body", request_body)
     return jsonify(todos)
